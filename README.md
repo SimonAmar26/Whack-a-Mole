@@ -25,3 +25,9 @@ https://docs.python.org/dev/library/turtle.html
 **Report Document Link:**
 - https://docs.google.com/document/d/1fycmazZH0LkBc0mDMovntwWAIA5DTChEb22E0SBT1s8/edit?usp=sharing
 
+**Things We Could Include in the Game:**
+- Countdown timer => to determine the end of the game?
+- Points System (?)
+- The mole popping up and then going back down
+- A background (?)
+- If we want we can make the mole progressively get faster the more points or time goes on in the game => optional
