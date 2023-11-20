@@ -22,7 +22,6 @@ https://docs.python.org/dev/library/turtle.html
   - Final remarks
   - What was the end result of our code?
 
-**Report Document Link**
-
+**Report Document Link:**
 https://docs.google.com/document/d/1fycmazZH0LkBc0mDMovntwWAIA5DTChEb22E0SBT1s8/edit?usp=sharing
 
