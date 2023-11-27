@@ -1,17 +1,31 @@
-from turtle import *
+import turtle
+import random
 
-T = Turtle()
-T.screen.title("Whack a Mole")
-T.screen.bgpic("/Users/simonamar-roisenberg/Desktop/Computional Thinking/BG.gif")
-T.screensize(canvwidth=500, canvheight=300,
-                  bg="black")
-T.color('red')
-T.fillcolor('yellow')
+# Set up the screen
+wn = turtle.Screen()
+wn.title("Whack-a-Mole Game Background")
+wn.bgcolor("green")
+wn.setup(width=800, height=800)  # Increase the width to provide more space
+
+# Create a 3x4 grid of holes where moles can appear
+holes = []
+
+for row in range(3):
+    for col in range(4):
+        hole = turtle.Turtle()
+        hole.shape("circle")
+        hole.color("white")
+        hole.shapesize(3)  # Make the circles larger
+        hole.penup()
+        x = col * 150 - 225  # Adjusted starting position for centering
+        y = row * 150 - 150
+        hole.goto(x, y)
+        holes.append(hole)
+
+# Main game loop (you can add your mole logic here)
 while True:
-    T.begin_fill()
-    T.forward(200)
-    T.left(170)
-    if abs(T.pos()) < 1:
-        break
+    # Your game logic goes here
+    pass
 
-T.screen.mainloop()
+# Close the window when clicked
+wn.exitonclick()
