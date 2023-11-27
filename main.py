@@ -4,7 +4,8 @@ import random
 # Set up the screen
 wn = turtle.Screen()
 wn.title("Whack-a-Mole Game Background")
-wn.bgcolor("green")
+wn.bgpic("canion_BG.gif") #SAR
+#wn.bgcolor("green")
 wn.setup(width=800, height=800)  # Increase the width to provide more space
 
 # Create a 3x4 grid of holes where moles can appear
