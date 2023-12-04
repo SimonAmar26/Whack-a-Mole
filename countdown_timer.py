@@ -8,7 +8,7 @@ for x in range(given_time, 0, -1):
     seconds = x % 60
     minutes = int(x / 60) % 60
     print(f"{minutes}:{seconds:02}")
-    time.sleep(1) #Added with intention of making the print("Time's Up!") appear one second after the countdown timer ended.
+    time.sleep(1) #Added with intention of making the text of timer appear one at a time.
 
 #Used print() to make a message to users that their time has ended.
 print("Time's Up!")
