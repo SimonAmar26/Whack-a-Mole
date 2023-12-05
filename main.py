@@ -41,6 +41,28 @@ for row in range(3):
         hole.goto(x, y)
         holes.append(hole)
 
+# Score display
+SCORE_FONT = ("Arial", 24, "normal")
+score = 0
+moles = []
+score_display = turtle.Turtle()
+score_display.speed(0)
+score_display.color("black")
+score_display.penup()
+score_display.hideturtle()
+score_display.goto(0, 260)
+score_display.write("Score: {}".format(score), align="center", font=SCORE_FONT)
+
+# Handle click events and point count
+def click(cordinates):
+    global score
+    for mole in moles:
+        if mole.distance(cordinates) < mole.shapesize:
+            score += 1
+            score_display.clear()
+            score_display.write("Score: {}".format(score), align="center", font=SCORE_FONT)
+            create_mole()
+
 # Main game loop (you can add your mole logic here)
 while True:
     # Your game logic goes here
