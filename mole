@@ -1,1 +1,114 @@
 import turtle
+import random
+
+wn = turtle.Screen()
+wn.title("Whack a Mole")
+wn.bgpic("canion_BG.gif")
+wn.setup(width=1200, height=700)
+turtle.tracer(0,0)
+
+def timer():
+    global T_time
+    global T
+    T.hideturtle()
+    T = turtle.Turtle()
+    T.penup()
+    T.hideturtle()
+    T.goto(0,300)
+    T_time -= 1
+    T.write(f'The time remaining is {T_time}',font=("Arial", 22, "normal"))
+    wn.update()
+    T.hideturtle()
+    wn.ontimer(timer,1000)
+
+def phase_1():
+    global i
+    global coordinates
+    t_app = random.randrange(200,1200)
+    pos1[i] = random.randrange(0, len(coordinates))
+    pos2[i] = coordinates.pop(pos1[i])
+    x, y = pos2[i]
+    mole_created[i] = turtle.Turtle()
+    mole_created[i].shape("yellow_mole.gif")
+    mole_created[i].penup()
+    mole_created[i].goto(x,y)
+    wn.update
+    i += 1
+    if i>4:
+        disappear()
+    wn.update
+    #mole_created[i].onclick(detect_click, btn=1, add=True)
+
+    if i<20:
+        wn.ontimer(phase_1,t_app)
+    else:
+        #coordinates = [(-300,-250),(-100,-250),(100,-250),(300,-250),(-300,-150),(-100,-150),(100,-150),(300,-150),(-300,-50),(-100,-50),(100,-50),(300,-50)]
+        wn.ontimer(phase_2,t_app)
+
+def phase_2():
+    global i
+    global coordinates
+    t_app = random.randrange(60,800)
+    pos1[i] = random.randrange(0, len(coordinates))
+    pos2[i] = coordinates.pop(pos1[i])
+    x, y = pos2[i]
+    mole_created[i] = turtle.Turtle()
+    mole_created[i].shape("red_mole.gif")
+    mole_created[i].penup()
+    mole_created[i].goto(x,y)
+    wn.update
+    mole_created[i].onscreenclick(detect_click, btn=1, add=True)
+    i += 1
+    disappear()
+    wn.update
+    if i<40:
+        wn.ontimer(phase_2,t_app)
+
+
+def detect_click(mole,x, y):
+    if zones[pos1][0] < x < zones[pos1][2] and zones[pos1][3] > y > zones[pos1][1] :
+        print('yessssss')
+
+    if mole.isvisible():
+        mole.hideturtle()
+
+def disappear():
+    mole_created[i-4].hideturtle()
+    coordinates.insert(pos1[i-4],pos2[i-4])
+    wn.update
+
+
+turtle.addshape('yellow_mole.gif')
+turtle.addshape('red_mole.gif')
+i = 1
+
+
+mole_created = [None]*10**2
+pos2 = [None]*10**2
+pos1 = [None]*10**2
+coordinates = [(-300,-250),(-100,-250),(100,-250),
+               (300,-250),(-300,-150),(-100,-150),
+               (100,-150),(300,-150),(-300,-50),
+               (-100,-50),(100,-50),(300,-50)]
+
+# zone = left, bottom, right, top
+zones = [(-350, -300, -250, -200), 
+        (-150, -300, -50, -200), 
+        (50, -300, 150, -200), 
+        (250, -300, 350, -200), 
+        (-350, -200, -250, -100), 
+        (-150, -200, -50, -100), 
+        (50, -200, 150, -100), 
+        (250, -200, 350, -100), 
+        (-350, -100, -250, 0), 
+        (-150, -100, -50, 0), 
+        (50, -100, 150, 0), 
+        (250, -100, 350, 0)]
+
+phase_1()
+
+#T_time = 90
+#timer()
+
+while True:
+    wn.update()
