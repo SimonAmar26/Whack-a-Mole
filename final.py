@@ -8,6 +8,20 @@ wn.bgpic("desert_BG.gif")
 wn.setup(width=1980, height=1080)
 turtle.tracer(0,0)
 
+def timer():
+    global t_remaining,t
+    if t > 0:
+        timer_list[t-1].clear()
+    timer_list[t] = turtle.Turtle()
+    timer_list[t].hideturtle()
+    timer_list[t].penup()
+    timer_list[t].goto(0, 310)
+    timer_list[t].write(f'The remaining time is {t_remaining}', align="center", font=("Arial", 40 ,"bold"))
+    turtle.update()
+    t_remaining -= 1
+    t += 1
+    wn.ontimer(timer, 1000)
+
 def print_text(text, duration):
     hello = turtle.Turtle()
     hello.hideturtle()
@@ -26,7 +40,7 @@ def counter():
     count_text[c].hideturtle()
     count_text[c].penup()
     count_text[c].goto(0, 280)
-    count_text[c].write(f'Your score: {count}', align="center", font=("Arial", 30, "normal"))
+    count_text[c].write(f'Your score: {count}', align="center", font=("Arial", 30, "bold"))
     c += 1
 
 def phase_1():
@@ -113,11 +127,14 @@ def disappear():
 
 turtle.addshape('yellow_mole.gif')
 turtle.addshape('red_mole.gif')
+turtle.addshape('green_mole.gif')
 turtle.addshape('aless.gif')
 
 i = 1
 total = 0
 count = 0
+t_remaining = 90
+t = 0
 old_count = 0
 c = 0
 mole_created = [None]*10**2
@@ -125,7 +142,7 @@ shape = [None]*10**2
 pos2 = [None]*10**2
 pos1 = [None]*10**2
 count_text = [None]*10**4
-timer = [None]*10**4
+timer_list = [None]*10**4
 coordinates = [(-300,-250),(-100,-250),(100,-250),
                (300,-250),(-300,-150),(-100,-150),
                (100,-150),(300,-150),(-300,-50),
@@ -135,8 +152,6 @@ fixed_coordinates = [(-300,-250),(-100,-250),(100,-250),
                (300,-250),(-300,-150),(-100,-150),
                (100,-150),(300,-150),(-300,-50),
                (-100,-50),(100,-50),(300,-50)]
-
-presence = [0,0,0,0,0,0,0,0,0,0,0,0]
 
 # zone = left, bottom, right, top
 zones = [(-350, -300, -250, -200),
@@ -155,6 +170,7 @@ zones = [(-350, -300, -250, -200),
 print_text('Welcome to the Whack a Mole Game !', 4)
 print_text("Let's begin ...", 2)
 time.sleep(1)
+timer()
 phase_1()
 phase_2()
 wn.ontimer(phase_3,1000)
@@ -165,8 +181,7 @@ while True:
     if old_count != count:
         old_count = count
         counter()
-    print(total)
-    if total >= 48 :
+    if total >= 48 or t == 0 :
         hello = turtle.Turtle()
         hello.hideturtle()
         hello.penup()
