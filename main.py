@@ -4,9 +4,18 @@ import time
 
 wn = turtle.Screen()
 wn.title("Whack a Mole")
-wn.bgpic("desert_BG.gif")
-wn.setup(width=1980, height=1080)
+wn.bgpic("rules.gif")
+wn.setup(width=1200, height=750)
 turtle.tracer(0,0)
+
+def BG_def(x,y):
+    print(0)
+    global BGv, wn
+    if x >= 0:
+        wn.bgpic('forest_BG.gif')
+    else:
+        wn.bgpic('desert_BG.gif')
+    BGv = True
 
 def timer():
     global t_remaining,t
@@ -91,7 +100,7 @@ def phase_3():
     pos2[i] = coordinates.pop(pos1[i])
     x, y = pos2[i]
     mole_created[i] = turtle.Turtle()
-    mole_created[i].shape("aless.gif")
+    mole_created[i].shape("green_mole.gif")
     shape[i] = mole_created[i].shape()
     mole_created[i].penup()
     mole_created[i].goto(x,y)
@@ -116,9 +125,8 @@ def detect_click(x, y):
                         count += 1
                     elif shape[a] == 'red_mole.gif':
                         count += 3
-                    elif shape[a] == 'aless.gif':
+                    elif shape[a] == 'green_mole.gif':
                         count += 5
-                    print(count)
 
 def disappear():
     global total
@@ -127,15 +135,14 @@ def disappear():
     total +=1
     wn.update
 
-
 turtle.addshape('yellow_mole.gif')
 turtle.addshape('red_mole.gif')
 turtle.addshape('green_mole.gif')
-turtle.addshape('aless.gif')
 
 i = 1
 total = 0
 count = 0
+x1, y1 = 0, 0
 t_remaining = 30
 t = 0
 old_count = 0
@@ -170,13 +177,19 @@ zones = [(-350, -300, -250, -200),
         (50, -100, 150, 0),
         (250, -100, 350, 0)]
 
-print_text('Welcome to the Whack a Mole Game !', 4)
-print_text("Let's begin ...", 2)
-time.sleep(1)
-timer()
-phase_1()
-phase_2()
-wn.ontimer(phase_3,1000)
+wn.bgpic("which.gif")
+time.sleep(5)
+BGv = False
+while BGv == False:
+    wn.update()
+    wn.onclick(BG_def)
+
+if BGv == True:
+    print_text('Welcome to the Whack a Mole Game !', 4)
+    timer()
+    phase_1()
+    phase_2()
+    wn.ontimer(phase_3,1000)
 
 while True:
     wn.update()
