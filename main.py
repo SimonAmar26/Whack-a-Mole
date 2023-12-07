@@ -1,28 +1,31 @@
 import turtle
-import random
 import time
+import random
 
-# function to set up the turtle tab 
+# Function to set up the turtle tab 
+
 wn = turtle.Screen()
 wn.title("Whack a Mole")
 wn.bgpic("rules.gif")
 wn.setup(width=1200, height=750)
 turtle.tracer(0,0)
 
-# function to chose a background
-def BG_def(x,y):
+# Function to set the background(s)
+
+def BG_def(x,y) :
     print(0)
     global BGv, wn
-    if x >= 0:
+    if x >= 0 :
         wn.bgpic('forest_BG.gif')
-    else:
+    else :
         wn.bgpic('desert_BG.gif')
     BGv = True
 
-# function to set a timer
-def timer():
+# Function to set a timer
+
+def timer() :
     global t_remaining,t
-    if t > 0:
+    if t > 0 :
         timer_list[t-1].clear()
     timer_list[t] = turtle.Turtle()
     timer_list[t].hideturtle()
@@ -32,13 +35,14 @@ def timer():
     turtle.update()
     t_remaining -= 1
     t += 1
-    if t_remaining>=0:
+    if t_remaining >= 0 :
         wn.ontimer(timer, 1000)
     else:
         timer_list[t-1].clear()
 
-# Function to display text in the middle of the screen
-def print_text(text, duration):
+# Function to display a text in the middle of the screen
+
+def print_text(text, duration) :
     hello = turtle.Turtle()
     hello.hideturtle()
     hello.penup()
@@ -48,10 +52,11 @@ def print_text(text, duration):
     time.sleep(duration)
     hello.clear()
 
-# Fuction to count the points
-def counter():
+# Function to count the points
+
+def counter() :
     global count_text, count,c
-    if c > 0:
+    if c > 0 :
         count_text[c-1].clear()
     count_text[c] = turtle.Turtle()
     count_text[c].hideturtle()
@@ -60,8 +65,9 @@ def counter():
     count_text[c].write(f'Your score: {count}', align="center", font=("Arial", 30, "bold"))
     c += 1
 
-# Function to set random coordinates for the apparition of the yellow moles that is worth one point
-def phase_1():
+# Function to set random coordinates for the apparition of the yellow moles that are worth 1 point when hit 
+
+def phase_1() :
     global i, coordinates
     t_app = random.randrange(200,1200)
     pos1[i] = random.randrange(0, len(coordinates))
@@ -74,14 +80,14 @@ def phase_1():
     mole_created[i].goto(x,y)
     wn.update
     i += 1
-    if i>4:
+    if i > 4 :
         disappear()
     wn.update
-    if i<100:
+    if i < 100 :
         wn.ontimer(phase_1,t_app)
 
-# Function to set random coordinates for the apparition of the red moles is worth 3 points
-def phase_2():
+# Function to set random coordinates for the apparition of the red moles that are worth 3 points when hit 
+def phase_2() :
     global i, coordinates
     t_app = random.randrange(2000,4000)
     pos1[i] = random.randrange(0, len(coordinates))
@@ -94,14 +100,14 @@ def phase_2():
     mole_created[i].goto(x,y)
     wn.update
     i += 1
-    if i>4:
+    if i > 4 :
         disappear()
     wn.update
-    if i<100:
+    if i < 100 :
         wn.ontimer(phase_2,t_app)
 
-# Function to set random coordinates for the apparition of the green moles that is worth 5 points
-def phase_3():
+# Function to set random coordinates for the apparition of the green moles that are worth 5 points when hit
+def phase_3() :
     global i, coordinates
     t_app = random.randrange(7000,8000)
     pos1[i] = random.randrange(0, len(coordinates))
@@ -114,43 +120,47 @@ def phase_3():
     mole_created[i].goto(x,y)
     wn.update
     i += 1
-    if i>4:
+    if i > 4 :
         disappear()
     wn.update
-    if i< 80:
+    if i < 80 :
         wn.ontimer(phase_3,t_app)
 
 # Function to detect the click of the player
-def detect_click(x, y):
+
+def detect_click(x, y) :
     global i, count, total
-    for zone in zones:
+    for zone in zones :
         if zone[0] < x < zone[2] and zone[3] > y > zone[1] :
             index_zone = zones.index(zone)
             position_mole = fixed_coordinates[index_zone]
-            for a in range(i-5,i):
-                if pos2[a] == position_mole:
+            for a in range(i-5,i) :
+                if pos2[a] == position_mole :
                     mole_created[a].hideturtle()
-                    if shape[a] == 'yellow_mole.gif':
+                    if shape[a] == 'yellow_mole.gif' :
                         count += 1
-                    elif shape[a] == 'red_mole.gif':
+                    elif shape[a] == 'red_mole.gif' :
                         count += 3
-                    elif shape[a] == 'green_mole.gif':
+                    elif shape[a] == 'green_mole.gif' :
                         count += 5
 
-# Functions to hide the mole after they appear
-def disappear():
+# Function to hide the mole after they appear
+
+def disappear() :
     global total
     mole_created[i-4].hideturtle()
     coordinates.insert(pos1[i-4],pos2[i-4])
-    total +=1
+    total += 1
     wn.update
 
-# add the different images
+# Add the different images of yellow moles, red moles and green moles
+
 turtle.addshape('yellow_mole.gif')
 turtle.addshape('red_mole.gif')
 turtle.addshape('green_mole.gif')
 
-# all the variables needed as arguments for the different functions
+# All the variables needed as arguments for the different functions
+
 i = 1
 total = 0
 count = 0
@@ -177,6 +187,7 @@ fixed_coordinates = [(-300,-250),(-100,-250),(100,-250),
 
 # Zones where the clicks are detected
 # zone = left, bottom, right, top
+
 zones = [(-350, -300, -250, -200),
         (-150, -300, -50, -200),
         (50, -300, 150, -200),
@@ -190,17 +201,20 @@ zones = [(-350, -300, -250, -200),
         (50, -100, 150, 0),
         (250, -100, 350, 0)]
 
-# Change the background to the one the player chose
+# Set the background according to the choice of the player 
+
 wn.bgpic("which.gif")
 time.sleep(5)
 BGv = False
 
 # Start the game when the player choses the background
+
 while BGv == False:
     wn.update()
     wn.onclick(BG_def)
 
 # Start the game procedure
+
 if BGv == True:
     print_text('Welcome to the Whack a Mole Game !', 4)
 # launch the timer
@@ -213,11 +227,12 @@ if BGv == True:
     wn.ontimer(phase_3,1000)
 
 # Update the screen so it can update the score, detect the clicks, show the moles and the timer
-while True:
+
+while True :
     wn.update()
     wn.onclick(detect_click)
 # change the point counter only if the user clicked on the mole
-    if old_count != count:
+    if old_count != count :
         old_count = count
         counter()
 # When the time is up stop the game and display "well played!"
