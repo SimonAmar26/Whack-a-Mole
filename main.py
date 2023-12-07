@@ -215,7 +215,7 @@ while BGv == False:
 
 # Start the game procedure
 
-if BGv == True:
+if BGv == True :
     print_text('Welcome to the Whack a Mole Game !', 4)
 # launch the timer
     timer()
